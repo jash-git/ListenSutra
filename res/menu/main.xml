@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/DownLoadMP3" android:title="下載其他佛教MP3"></item>
+     <item android:id="@+id/setSleepTime" android:title="設定睡眠時間"></item>
+    <item android:id="@+id/ShowVersion"
+          android:title="版本資訊" />
+   
+</menu>

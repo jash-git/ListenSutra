@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+    <LinearLayout
+        android1:layout_width="match_parent"
+        android1:layout_height="fill_parent"
+        android:layout_weight="1.5"
+        android1:orientation="vertical" >			<!-- 因為 layout_width="match_parent" 所以1.5->7/(7+1.5)比例  -->
+
+        <LinearLayout
+            android1:layout_width="match_parent"
+            android1:layout_height="0dp"
+            android:layout_weight="2" >
+            <Button
+                android1:id="@+id/btn_changePath"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:text="改變目錄" 
+                android1:textSize="18dp"/>
+            <TextView
+                android1:id="@+id/tv_Title"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:text="檔案清單:"
+                android1:textSize="18dp" />
+
+        </LinearLayout><!-- 因為android1:layout_width="wrap_content" & android1:layout_height="0dp" 所以2->2/(5+3+1+2)比例  -->
+	
+	    <ListView
+	        android1:id="@+id/lv_Files"
+	        android1:layout_width="wrap_content"
+	        android1:layout_height="0dp"
+	        android:layout_weight="5">			<!-- 因為android1:layout_width="wrap_content" & android1:layout_height="0dp" 所以5->5/(5+3+1+2)比例  -->
+	
+	    </ListView>
+
+	    <TextView
+	        android1:id="@+id/tv_Info"
+	        android1:layout_width="wrap_content"
+	        android1:layout_height="0dp"
+	        android1:layout_weight="3"
+	        android1:text="選擇要播放的檔案資訊\n\t請選要播放的檔案"
+	        android1:textSize="18dp" /> <!-- 因為android1:layout_width="wrap_content" & android1:layout_height="0dp" 所以3->3/(5+3+1+2)比例  -->
+
+	    <LinearLayout
+	        android1:layout_width="fill_parent"
+	        android1:layout_height="0dp"
+	        android1:layout_weight="1">
+
+	        <TextView
+	            android1:id="@+id/textView1"
+	            android1:layout_width="wrap_content"
+	            android1:layout_height="wrap_content"
+	            android1:textSize="18dp"
+	            android1:text="音量控制：" />
+
+	        <SeekBar
+	            android1:id="@+id/seekBar1"
+	            android1:layout_width="match_parent"
+	            android1:layout_height="wrap_content" />
+
+	    </LinearLayout><!-- 因為android1:layout_width="wrap_content" & android1:layout_height="0dp" 所以1->1/(7+3+1+2)比例  -->
+			
+    </LinearLayout>
+    <LinearLayout
+        android1:layout_width="match_parent"
+        android:layout_weight="7"
+        android1:layout_height="fill_parent" >			<!-- 因為 layout_width="match_parent" 所以7->1.5/(7+1.5)比例 -->
+
+        <Button
+            android1:id="@+id/btt_Start"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="播放" />
+        
+        <Button
+            android1:id="@+id/btt_Stop"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="暫停" />
+        <Button
+            android1:id="@+id/btt_Forward"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="快轉" />
+
+        <Button
+            android1:id="@+id/btt_Decrease"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="倒轉" />
+
+        <LinearLayout
+            android1:layout_width="wrap_content"
+            android1:layout_height="match_parent"
+            android1:orientation="vertical" >
+
+            <CheckBox
+                android1:id="@+id/cb_Loop"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:text="單一循環" />
+
+            <CheckBox
+                android1:id="@+id/cb_Sleep"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:text="睡眠" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

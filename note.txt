@@ -1,0 +1,68 @@
+ListenSutra.apk（聽佛）
+	├版號：15091303 / 2015.09.13_03
+	├換圖/換應用程式名稱
+	├CommonModule.java
+		├通用訊息對話盒
+		├Android 把自己縮小/隱藏
+		├Android Send Key code 模擬鍵盤
+		├Android Send Touch 模擬點擊
+		├Android Send TouchMOVE 模擬滑動
+		├通用資料庫SQLite
+		├抓取APP本身版本資訊
+		├SharedPreferences的使用(APP暫存資料功能)[記錄/讀取 變數值從實體檔案]
+		├取當前語言/取當前國家
+		├Android 影像處理基礎
+		├傳入圖片並切出圓角，圓角轉換函式，帶入Bitmap圖片及圓角數值則回傳圓角圖，回傳Bitmap再置入ImageView
+		├抓取非Wifi的網卡MAC
+		├取得wifi資訊
+		├手機內系統訊息
+		├取得系統上安裝APK清單
+		├刪除背景程式
+		├利用TIMER掃描偵測特定USB設備
+		├等帶時動畫
+		├清除APP暫存
+		├刪除資料夾內檔案
+		├刪除資料夾
+		├寫文字檔
+		├建立APP 資料夾
+		├抓SD卡下特定目錄的完整路徑
+		├抓取資料下所有檔案清單(列表)-子資料不會抓取
+		├抓取資料夾清單(列表)-(字串陣列動態配置記憶體 標準動作)
+		├Http DownLoad
+		├Read JSON
+		├簡訊相關 SMS
+		├isAddressAvailable(確認網路)
+		├isInternetOn(確認網路)
+		├ping(確認網路)
+		├Http post Json to Server
+		├Http Post Data to Server
+		├關閉程式提示
+		├啟動外部程式
+		├GUI提示訊息
+		├紀錄存活時間
+		├畫面相關變數與函數（絕對配置gui）
+		├Timer相關變數與函數
+		├資源檔複製到sd卡
+		├Notification 狀態列顯示icon/ 喚回GUI
+		├自訂listview字型大小，透過layout
+		├timer內實做倒數計時關閉程式
+		├單純檔案拷貝（copyfile）
+		├儲存實體SharedPreferences的xml到sd卡上(SaveSharedPreferencesXML)
+	├MainActivity.java
+		├修正CheckBox上一次選擇到中斷後播放會失效的問題(在Button時直接讀取CheckBox狀態)
+		├SeekBar 標準操作
+		├ListView 標準操作
+		├TextView 標準操作
+		├Button 標準操作
+		├CheckBox 標準操作
+		├MediaPlayer 播放sd卡音樂檔案（mp3）標準操作
+		├螢幕旋轉不執行onCreate
+		├鍵盤偵測
+		├關閉程式標準程式實做
+		├AudioManager控制媒體播放音量-SeekBar拖拉控制
+		├透過menu選單（xml）來顯示版本資訊
+		├目錄切換即時更新播放選項清單
+		├在自訂目錄中自動循環播放(利用程式執行按鈕事件callOnClick)
+		├ArrayList<String>的使用(clear add get size)
+		├PopupWindow(XML版)-大小沒滿板的防呆機制+ListView使用xml和程式碼混合修改呈現
+		
