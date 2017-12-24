@@ -27,7 +27,8 @@ public final class R {
     public static final class id {
         public static final int DownLoadMP3=0x7f090012;
         public static final int LV_mp3=0x7f09000d;
-        public static final int ShowVersion=0x7f090014;
+        public static final int Search=0x7f090014;
+        public static final int ShowVersion=0x7f090015;
         public static final int btn_changePath=0x7f090000;
         public static final int btnclose=0x7f09000c;
         public static final int btt_Decrease=0x7f090009;

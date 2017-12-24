@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
 	public ListView m_LVFiles;
 	public TextView m_TVInfo;
 	public TextView m_TVTitle;
+	public TextView m_TVInputTitle;
 	public Button m_BttStart;
 	public Button m_BttStop;
 	public Button m_BttForward;
@@ -63,6 +64,7 @@ public class MainActivity extends Activity {
 	public Context m_context;
 	public String m_StrPresetPath="";
 	public String m_StrNowPath="";
+	public String m_StrSearch="";
 	public ArrayList<String> m_ListAutoPlayList = new ArrayList<String>();
 	public int m_ContinuousPlayCount=0;
 	
@@ -241,7 +243,11 @@ public class MainActivity extends Activity {
 				// get prompts.xml view
 				LayoutInflater li = LayoutInflater.from(this);
 				View promptsView = li.inflate(R.layout.prompts, null);
-
+				
+				m_TVInputTitle=(TextView)promptsView.findViewById(R.id.textView1);
+				m_TVInputTitle.setText("輸入睡眠時間（分鐘）: ");				
+				
+				
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						this);
 
@@ -303,6 +309,51 @@ public class MainActivity extends Activity {
 				{
 					m_CM.ShowMessageDialog("偵測無網路","目前偵測無網路，請確認行動上網或wifi是否正常。","關閉");
 				}
+				break;
+			case R.id.Search://檔案搜尋選單
+				// get prompts.xml view
+				LayoutInflater li_s = LayoutInflater.from(this);
+				View promptsView_s = li_s.inflate(R.layout.prompts, null);
+				
+				m_TVInputTitle=(TextView)promptsView_s.findViewById(R.id.textView1);
+				m_TVInputTitle.setText("輸入搜尋檔名 : ");				
+				
+				
+				AlertDialog.Builder alertDialogBuilder_s = new AlertDialog.Builder(
+						this);
+
+				// set prompts.xml to alertdialog builder
+				alertDialogBuilder_s.setView(promptsView_s);
+
+				final EditText userInput_s = (EditText) promptsView_s
+						.findViewById(R.id.editTextDialogUserInput);
+
+				// set dialog message
+				alertDialogBuilder_s
+						.setCancelable(false)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// get user input and set it to result
+										// edit text
+										m_StrSearch = userInput_s.getText().toString();
+										m_CM.ShowMessageDialog("搜尋資訊：",m_StrSearch,"關閉");
+									}
+								})
+						.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
+
+				// create alert dialog
+				AlertDialog alertDialog_s = alertDialogBuilder_s.create();
+
+				// show it
+				alertDialog_s.show();				
 				break;
 		}
 	    return true;
@@ -513,9 +564,9 @@ public class MainActivity extends Activity {
 			}
 			if(v==m_BttForward)
 			{
-				if((m_MediaPlayer.getCurrentPosition()+30000)<m_MediaPlayer.getDuration())
+				if((m_MediaPlayer.getCurrentPosition()+10000)<m_MediaPlayer.getDuration())
 				{
-					m_MediaPlayer.seekTo(m_MediaPlayer.getCurrentPosition()+30000);
+					m_MediaPlayer.seekTo(m_MediaPlayer.getCurrentPosition()+10000);
 				}
 				m_TVInfo.setText("開始播放："+m_StrMP3Name);
 				m_TVInfo.append("\n\t\t曲目長度："+(m_MediaPlayer.getDuration()/1000)+"秒");
@@ -533,9 +584,9 @@ public class MainActivity extends Activity {
 			}
 			if(v==m_BttDecrease)
 			{
-				if((m_MediaPlayer.getCurrentPosition()-30000)>0)
+				if((m_MediaPlayer.getCurrentPosition()-10000)>0)
 				{
-					m_MediaPlayer.seekTo(m_MediaPlayer.getCurrentPosition()-30000);
+					m_MediaPlayer.seekTo(m_MediaPlayer.getCurrentPosition()-10000);
 				}
 				else
 				{
