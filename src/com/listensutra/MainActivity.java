@@ -338,7 +338,74 @@ public class MainActivity extends Activity {
 										// get user input and set it to result
 										// edit text
 										m_StrSearch = userInput_s.getText().toString();
-										m_CM.ShowMessageDialog("搜尋資訊：",m_StrSearch,"關閉");
+										//m_CM.ShowMessageDialog("搜尋資訊：",m_StrSearch,"關閉");
+										for(int pos=0;pos<m_ListAutoPlayList.size();pos++)
+										{
+											m_StrMP3Name=m_ListAutoPlayList.get(pos);
+											if(m_StrMP3Name.contains(m_StrSearch))
+											{
+												m_ContinuousPlayCount=pos;
+												
+												//----TextView tmp = (TextView) iv;
+												m_CM.ShowMessage(m_CM.GetSDFolderPath(m_StrNowPath)+m_StrMP3Name);
+												String Strdata;
+												Strdata=m_CM.GetSDFolderPath(m_StrNowPath)+m_StrMP3Name;
+												//----m_StrMP3Name=(String)tmp.getText();
+												//Strdata.toLowerCase();//全部轉小寫
+												if(Strdata.contains(".mp3"));
+												{
+													try 
+													{
+														FileInputStream fileStream;
+														fileStream = new FileInputStream(Strdata);
+														m_MediaPlayer.reset();
+														m_MediaPlayer.setDataSource(fileStream.getFD());
+														m_MediaPlayer.prepare();
+														m_TVInfo.setText("準備播放："+m_StrMP3Name);
+														String [] name={m_StrMP3Name};
+														String [] value=m_CM.SharedPreferences_Read(name,1);
+														if(value[0]=="null_data")
+														{
+															value[0]="0";
+														}
+														else
+														{
+															m_MediaPlayer.seekTo(Integer.valueOf(value[0])*1000);
+														}
+														m_TVInfo.append("\n\t\t曲目長度："+(m_MediaPlayer.getDuration()/1000)+"秒");
+														if(m_blnLANDSCAPE)
+														{
+															m_TVInfo.append("\t\t播放第    ："+(m_MediaPlayer.getCurrentPosition()/1000)+"秒");
+														}
+														else
+														{
+															m_TVInfo.append("\n\t\t播放第    ："+(m_MediaPlayer.getCurrentPosition()/1000)+"秒");
+														}
+														m_BttStart.setEnabled(true);
+														m_CBLoop.setEnabled(true);
+														m_CBSleep.setEnabled(true);
+														m_BttStop.setEnabled(false);
+														m_BttForward.setEnabled(true);
+														m_BttDecrease.setEnabled(true);
+													} 
+													catch (FileNotFoundException e) 
+													{
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													} catch (IllegalArgumentException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													} catch (IllegalStateException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													} catch (IOException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													}
+												}
+												break;
+											}	
+										}										
 									}
 								})
 						.setNegativeButton("Cancel",

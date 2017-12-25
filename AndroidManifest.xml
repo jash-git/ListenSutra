@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.listensutra"
-    android:versionCode="17122401"
-    android:versionName="2017.12.24_01">
+    android:versionCode="17122501"
+    android:versionName="2017.12.25_01">
 
     <uses-sdk
         android:minSdkVersion="8"
