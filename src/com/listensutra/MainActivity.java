@@ -1,5 +1,6 @@
 package com.listensutra;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -495,7 +497,18 @@ public class MainActivity extends Activity {
 				e.printStackTrace();
 			}
 		}	
-	}	
+	}
+	
+	//--
+	//撰寫單純紀錄最後一筆未播完檔案資訊函數
+	public void SaveLastFileInfo(String path,String name,String value)
+	{
+		m_CM.DeleteOneFile("ListenSutra","SaveLastFileInfo.txt");//刪除原本檔案
+		String StrMsg=path+","+name+","+value;
+		m_CM.WriteData2File("ListenSutra","SaveLastFileInfo.txt",StrMsg);
+	}
+	//--
+	
 	class ButListener implements OnClickListener
 	{
 		public void onClick(View v)
@@ -620,6 +633,7 @@ public class MainActivity extends Activity {
 					String [] value={""+(m_MediaPlayer.getCurrentPosition()/1000)};
 					m_CM.SharedPreferences_Write(name,value,1);
 					m_CM.SaveSharedPreferencesXML(m_CM.m_StrPackageName,"ListenSutra");
+					SaveLastFileInfo(m_StrNowPath,m_StrMP3Name,""+(m_MediaPlayer.getCurrentPosition()/1000));//撰寫單純紀錄最後一筆未播完檔案資訊函數
 					//m_CM.SaveSharedPreferencesXML("com.SmallFactory.ProjectTwoPicture","ListenSutra");
 					m_BttStart.setEnabled(true);
 	        		m_CBLoop.setEnabled(true);
