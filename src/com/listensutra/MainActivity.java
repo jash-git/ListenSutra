@@ -176,7 +176,15 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onRestart() {//從Mp3Activity回來要更新ListView
 	    super.onRestart();  // Always call the superclass method first
-		ArrayAdapter<String> ad = new ArrayAdapter<String>(this,R.layout.mytextview, m_CM.GetFileList("ListenSutra",".mp3"));//自訂listview字型大小，透過layout
+	    ArrayAdapter<String> ad;
+	    if(m_StrNowPath.length()<=0)
+	    {
+	    	ad = new ArrayAdapter<String>(this,R.layout.mytextview, m_CM.GetFileList("ListenSutra",".mp3"));//自訂listview字型大小，透過layout
+	    }
+	    else
+	    {
+	    	ad = new ArrayAdapter<String>(this,R.layout.mytextview, m_CM.GetFileList(m_StrNowPath,".mp3"));//自訂listview字型大小，透過layout
+	    }
 		m_LVFiles.setAdapter(ad);	    
 	    // Activity being restarted from stopped state    
 	}	
@@ -506,6 +514,110 @@ public class MainActivity extends Activity {
 		m_CM.DeleteOneFile("ListenSutra","SaveLastFileInfo.txt");//刪除原本檔案
 		String StrMsg=path+","+name+","+value;
 		m_CM.WriteData2File("ListenSutra","SaveLastFileInfo.txt",StrMsg);
+	}
+	//--
+	
+	//--
+	//重開接續撥放
+	public void RestartContinuePlaying()
+	{
+		String Data= "";
+		Data=m_CM.ReadFile2String("ListenSutra","SaveLastFileInfo.txt",true);
+		if(Data.length()<=0)
+		{
+			return;
+		}
+		String[] AfterSplit = Data.split(",");
+		
+		//-
+		//抓取/設定撥放清單
+		m_ListAutoPlayList.clear();
+		String []buf=m_CM.GetFileList(AfterSplit[0],".mp3");
+		if(buf.length>0)
+		{
+			for(int i=0;i<buf.length;i++)
+			{
+				m_ListAutoPlayList.add(buf[i]);
+			}
+		}
+		ArrayAdapter<String> ad = new ArrayAdapter<String>(m_context,R.layout.mytextview, m_CM.GetFileList(AfterSplit[0],".mp3"));//自訂listview字型大小，透過layout
+		m_LVFiles.setAdapter(ad);
+		m_CM.ShowMessage(m_CM.GetSDFolderPath(AfterSplit[0]));
+		m_TVTitle.setText("檔案清單：（"+m_CM.GetSDFolderPath(AfterSplit[0])+"）");
+		m_StrNowPath=AfterSplit[0];
+		//-
+		
+		//-
+		//指定播放檔案
+		m_StrSearch = AfterSplit[1];
+		for(int pos=0;pos<m_ListAutoPlayList.size();pos++)
+		{
+			m_StrMP3Name=m_ListAutoPlayList.get(pos);
+			if(m_StrMP3Name.contains(m_StrSearch))
+			{
+				m_ContinuousPlayCount=pos;
+				
+				//----TextView tmp = (TextView) iv;
+				m_CM.ShowMessage(m_CM.GetSDFolderPath(m_StrNowPath)+m_StrMP3Name);
+				String Strdata;
+				Strdata=m_CM.GetSDFolderPath(m_StrNowPath)+m_StrMP3Name;
+				//----m_StrMP3Name=(String)tmp.getText();
+				//Strdata.toLowerCase();//全部轉小寫
+				if(Strdata.contains(".mp3"));
+				{
+					try 
+					{
+						FileInputStream fileStream;
+						fileStream = new FileInputStream(Strdata);
+						m_MediaPlayer.reset();
+						m_MediaPlayer.setDataSource(fileStream.getFD());
+						m_MediaPlayer.prepare();
+						m_TVInfo.setText("準備播放："+m_StrMP3Name);
+						String [] name={m_StrMP3Name};
+						String [] value=m_CM.SharedPreferences_Read(name,1);
+						if(value[0]=="null_data")
+						{
+							value[0]="0";
+						}
+						else
+						{
+							m_MediaPlayer.seekTo(Integer.valueOf(value[0])*1000);
+						}
+						m_TVInfo.append("\n\t\t曲目長度："+(m_MediaPlayer.getDuration()/1000)+"秒");
+						if(m_blnLANDSCAPE)
+						{
+							m_TVInfo.append("\t\t播放第    ："+(m_MediaPlayer.getCurrentPosition()/1000)+"秒");
+						}
+						else
+						{
+							m_TVInfo.append("\n\t\t播放第    ："+(m_MediaPlayer.getCurrentPosition()/1000)+"秒");
+						}
+						m_BttStart.setEnabled(true);
+						m_CBLoop.setEnabled(true);
+						m_CBSleep.setEnabled(true);
+						m_BttStop.setEnabled(false);
+						m_BttForward.setEnabled(true);
+						m_BttDecrease.setEnabled(true);
+					} 
+					catch (FileNotFoundException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				break;
+			}	
+		}		
+		//-
 	}
 	//--
 	

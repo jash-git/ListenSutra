@@ -1011,6 +1011,47 @@ public class CommonModule
 			logfile.delete();
 		}
 	}
+	public static String ReadFile2String(String StrDir,String FileName,boolean blnonlyone)
+	{
+		String StrAns = "";
+		
+		File sd = Environment.getExternalStorageDirectory(); 
+		String Dir=StrDir;
+		String path = sd.getPath()+"/"+Dir+"/"+FileName;
+		
+		File file=new File(path);
+		if(!file.exists())
+		{
+			return StrAns;
+		}
+		file = null;
+		
+		FileReader fr;
+		try {
+			fr = new FileReader(path);
+			BufferedReader br = new BufferedReader(fr);
+			while (br.ready())
+			{
+				StrAns += br.readLine();
+				if(blnonlyone)
+				{
+					break;
+				}
+				else
+				{
+					StrAns += ";";
+				}
+			}
+			fr.close();			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return StrAns;
+	}
 	public static void WriteData2File(String StrDir,String FileName,String StrMsg)//
 	{
 		File sd=Environment.getExternalStorageDirectory(); 
@@ -2595,6 +2636,8 @@ public class CommonModule
 					//ArrayAdapter<String> ad = new ArrayAdapter<String>(m_context, android.R.layout.simple_list_item_1, GetFileList("ListenSutra",".mp3"));
 					ArrayAdapter<String> ad = new ArrayAdapter<String>(m_context,R.layout.mytextview, GetFileList("ListenSutra",".mp3"));//自訂listview字型大小，透過layout
 					m_MA.m_LVFiles.setAdapter(ad);
+					
+					m_MA.RestartContinuePlaying();//呼叫重開接續撥放
 					m_intStep=100;
 					break;
 				case 1://playing
